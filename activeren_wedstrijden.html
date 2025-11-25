@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8" />
+    <title>Wedstrijd activeren</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #d0e8f2, #f8f9fa);
+            margin: 0;
+            padding: 0;
+        }
+
+        .actief {
+            font-weight: bold;
+            color: green;
+        }
+
+        table {
+            width: 95%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        thead {
+            background-color: #4a90e2;
+            color: white;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        input[type="number"] {
+            width: 80px;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .readonly {
+            background-color: #f9f9f9;
+            color: #555;
+        }
+
+        .button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            background-color: #4a90e2;
+            color: white;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #357ab8;
+        }
+
+        #opslaanAllesBtn {
+            display: block;
+            margin: 20px auto;
+            font-size: 18px;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Wedstrijd activeren</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+        {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Formulier voor activeren wedstrijd -->
+    <form method="POST" action="{{ url_for('activeer_wedstrijd') }}">
+        <ul>
+        {% for wedstrijd in wedstrijden %}
+            <li>
+                <label>
+                    <input type="radio" name="wedstrijd_id" value="{{ wedstrijd.id }}" {% if wedstrijd.actief %}checked{% endif %}>
+                    {{ wedstrijd.naam }} {% if wedstrijd.actief %}<span class="actief">(actief)</span>{% endif %}
+                </label>
+            </li>
+        {% endfor %}
+        </ul>
+        <button type="submit" class="button">Activeer geselecteerde wedstrijd</button>
+    </form>
+
+    <!-- Formulier voor deactiveren alle wedstrijden -->
+    <form method="POST" action="{{ url_for('deactiveer_wedstrijden') }}" style="margin-top: 15px;">
+        <button type="submit" class="button">Deactiveer alle wedstrijden</button>
+    </form>
+
+    <p><a href="{{ url_for('beheer_wedstrijden') }}">Terug naar wedstrijden beheer</a></p>
+</body>
+</html>

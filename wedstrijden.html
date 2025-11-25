@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<title>Wedstrijden Overzicht</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/adminwedstrijden.css') }}">
+</head>
+<body>
+
+<nav>
+  <a href="/dashboard">Admin home</a>
+  <a href="/admin/rollen">Rollenbeheer</a>
+  <a href="/admin/wedstrijden">Wedstrijden</a>
+  <a href="/admin/activeren">Activeren Wedstrijd</a>
+  <a href="/logout" class="logout-link">Uitloggen</a>
+</nav>
+
+<h1>Wedstrijden overzicht</h1>
+<div class="center"><button id="maakWedstrijdBtn">Wedstrijd aanmaken</button></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>nr</th><th>Naam wedstrijd</th><th>Soort</th><th>Dagdeel</th><th>Datum</th><th>Locatie</th><th>Actie</th>
+    </tr>
+  </thead>
+  <tbody id="wedstrijdenTableBody"><tr><td colspan="7">Data wordt geladen...</td></tr></tbody>
+</table>
+
+<!-- Modal -->
+<div id="modal">
+  <div id="modalContent">
+    <h2>Nieuwe Wedstrijd</h2>
+    <form id="wedstrijdForm" style="display:flex; flex-direction:column; gap:12px;">
+      <label>Titel *<br/><input type="text" id="titel" required /></label>
+      <label>Datum<br/><input type="date" id="datum" /></label>
+      <label>Locatie<br/><input type="text" id="locatie" /></label>
+      <label>Dagdeel<br/>
+        <select id="dagdeel">
+          <option>Ochtend</option><option>Middag</option><option>Avond</option>
+        </select>
+      </label>
+      <label>Soort wedstrijd<br/>
+        <select id="soort">
+          <option value="">-- Kies --</option>
+          <option value="groepsspringen">Groepsspringen</option>
+          <option value="individueel">Individueel</option>
+          <option value="microteam">Microteam</option>
+        </select>
+      </label>
+      <div id="banenSection" style="display:none;">
+        <label>Banen (klik of sleep om te selecteren)</label>
+        <div id="banenContainer" style="margin-top:5px;"></div>
+      </div>
+      <div style="display:flex; justify-content:space-between; margin-top:10px;">
+        <button type="submit">Opslaan</button>
+        <button type="button" id="cancelBtn">Annuleren</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+<script src="{{ url_for('static', filename='js/adminwedstrijden.js') }}"></script>
+</body>
+</html>

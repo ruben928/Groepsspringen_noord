@@ -1,0 +1,94 @@
+body {
+    background: black;
+    color: white;
+    margin: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Algemene dia-opmaak */
+  .dia {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100vh;
+    text-align: left;
+    transition: opacity 1s ease;
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    padding: 4rem;
+    box-sizing: border-box;
+  }
+
+  .dia.active { opacity: 1; }
+
+  /* Welkom- en info-dia gedeelde stijl */
+  .center-dia {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .center-dia h1 {
+    font-size: 8rem;
+    margin: 0;
+    color: white;
+  }
+
+  .center-dia .naam, .center-dia .bericht {
+    font-size: 5rem;
+    margin-top: 2rem;
+    color: white;
+  }
+
+  /* Score-dia’s */
+  .team-info { text-align: left; }
+
+  .team-naam {
+    font-weight: bold;
+    font-size: 7rem;
+    margin-bottom: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .team-categorie {
+    font-size: 5rem;
+    margin-bottom: 4rem;
+  }
+
+  .scores {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .scoreblok {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+    border-bottom: 2px solid #444;
+    padding-bottom: 0.3rem;
+    opacity: 0;
+    transform: translateY(25px);
+    animation: fadeInUp 0.5s forwards;
+  }
+
+  .scoreblok:nth-child(1){animation-delay:0.1s;}
+  .scoreblok:nth-child(2){animation-delay:0.3s;}
+  .scoreblok:nth-child(3){animation-delay:0.5s;}
+  .scoreblok:nth-child(4){animation-delay:0.7s;}
+  .scoreblok:nth-child(5){animation-delay:0.9s;}
+
+  @keyframes fadeInUp {
+    to {opacity:1;transform:translateY(0);}
+  }
+
+  .label { font-size: 2.2rem; width: 300px; }
+  .waarde { font-size: 3.5rem; font-weight: bold; width: 200px; text-align: right; }

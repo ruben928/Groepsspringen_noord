@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Hoofdjury</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+  body { font-family: Arial, sans-serif; margin: 20px; background: #f8f9fa; }
+  h1 { text-align: center; color: #4a90e2; }
+  table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+  th, td { padding: 8px 12px; border: 1px solid #ccc; text-align: center; }
+  th { background: #4a90e2; color: white; }
+  input[type="number"] { width: 80px; padding: 4px; }
+  button { padding: 4px 10px; border: none; border-radius: 6px; cursor: pointer; }
+  .btn-opslaan { background: #4a90e2; color: white; }
+  .btn-opslaan:hover { background: #357ab8; }
+  .btn-request { background: #d9534f; color: white; }
+  .btn-request:hover { background: #c9302c; }
+  .btn-pending { background: #f0ad4e; color: white; }
+  .btn-done { background: #5cb85c; color: white; }
+  nav { display: flex; align-items: center; background-color: #4a90e2; padding: 10px 20px; border-radius: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  nav a { color: white; text-decoration: none; margin-right: 20px; font-weight: 600; transition: color 0.2s; }
+  nav a:hover { color: #cce4f7; }
+  nav a:last-child { margin-left: auto; }
+  .popup { position: fixed; top: 20px; left: 20px; background: #333; color: white; padding: 10px 15px; border-radius: 6px; opacity: 0.9; z-index: 1000; }
+</style>
+</head>
+<body>
+    <h1>Hoofdjury - Wedstrijd <span id="wedstrijd-id"></span></h1>
+
+    <table id="deelnemers-tabel">
+        <thead>
+            <tr>
+                <th>Nummer</th>
+                <th>Naam</th>
+                <th>Vereniging</th>
+                <th>Baan</th>
+                <th>Categorie</th>
+                <th>Jury 1</th>
+                <th>Jury 2</th>
+                <th>Moeilijkheid</th>
+                <th>Samenstelling</th>
+                <th>Bonus HJ</th>
+                <th>Opslaan</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        const socket = io();
+        const urlParams = new URLSearchParams(window.location.search);
+        const wedstrijdId = urlParams.get("wedstrijd_id") || "{{ wedstrijd_id }}";
+        document.getElementById("wedstrijd-id").innerText = wedstrijdId;
+
+        // 🔹 Tabel laden
+        async function loadDeelnemers() {
+            try {
+                const res = await axios.get(`/api/wedstrijden/${wedstrijdId}/alle2_deelnemers`);
+                const tbody = document.querySelector("#deelnemers-tabel tbody");
+                tbody.innerHTML = "";
+
+                res.data.forEach(d => {
+                    const rowId = `${wedstrijdId}-${d.nummer}-${d.baan}`;
+                    const tr = document.createElement("tr");
+                    tr.id = `row-${rowId}`;
+                    tr.innerHTML = `
+                        <td>${d.nummer}</td>
+                        <td>${d.naam}</td>
+                        <td>${d.vereniging || ""}</td>
+                        <td>${d.baan}</td>
+                        <td><input type="text" value="${d.categorie || ""}" id="cat-${rowId}"></td>
+                        <td><input type="number" step="0.1" value="${d.jury1}" id="jury1-${rowId}"></td>
+                        <td><input type="number" step="0.1" value="${d.jury2}" id="jury2-${rowId}"></td>
+                        <td><input type="number" step="0.1" value="${d.moeilijkheid}" id="moeilijk-${rowId}"></td>
+                        <td><input type="number" step="0.1" value="${d.samenstelling}" id="samenst-${rowId}"></td>
+                        <td><input type="number" step="0.1" value="${d.bonusHJ}" id="bonus-${rowId}"></td>
+                        <td><button onclick="saveDeelnemer(${d.nummer}, ${d.baan})">💾</button></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (err) {
+                alert("Kon deelnemers niet laden: " + err);
+            }
+        }
+
+        // 🔹 Opslaan
+        async function saveDeelnemer(nummer, baan) {
+            const rowId = `${wedstrijdId}-${nummer}-${baan}`;
+            const payload = {
+                wedstrijd_id: wedstrijdId,
+                nummer,
+                baan,
+                categorie: document.getElementById(`cat-${rowId}`).value,
+                jury1: parseFloat(document.getElementById(`jury1-${rowId}`).value) || 0,
+                jury2: parseFloat(document.getElementById(`jury2-${rowId}`).value) || 0,
+                moeilijkheid: parseFloat(document.getElementById(`moeilijk-${rowId}`).value) || 0,
+                samenstelling: parseFloat(document.getElementById(`samenst-${rowId}`).value) || 0,
+                bonusHJ: parseFloat(document.getElementById(`bonus-${rowId}`).value) || 0
+            };
+
+            try {
+                await axios.post(`/api/wedstrijden/${wedstrijdId}/update_deelnemer`, payload);
+                alert(`✅ Deelnemer ${nummer} (baan ${baan}) opgeslagen`);
+            } catch (err) {
+                alert("❌ Fout bij opslaan: " + err);
+            }
+        }
+
+        // 🔹 Socket updates ontvangen (wedstrijd+baan specifiek!)
+        socket.on("score_update", data => {
+            console.log("Score update binnen:", data);
+            if (!data.deelnemers) return;
+            data.deelnemers.forEach(d => {
+                if (d.wedstrijd_id == wedstrijdId) {
+                    loadDeelnemers(); // herlaad enkel deze wedstrijd
+                }
+            });
+        });
+
+        loadDeelnemers();
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+body { font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f0f4f8;margin:0;padding:20px; }
+  h1 { text-align:center;color:#4a90e2;margin-top:20px; }
+  #wedstrijdInfo { text-align:center;margin-bottom:20px; }
+  #banenContainer { display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:20px; }
+  .baan-col { background:#fff;padding:10px;border-radius:10px;box-shadow:0 4px 8px rgba(0,0,0,0.1);margin-bottom:20px; }
+  .baan-col h2 { text-align:center;color:#4a90e2; }
+  .baan-tegel { background:#e3f2fd;border-radius:8px;padding:10px;margin-bottom:10px;transition:0.3s;cursor:pointer; }
+  .baan-tegel.ingediend { background:#ffa726;color:#000; }
+  .baan-tegel.goedgekeurd { background:#d4edda;color:#155724; }
+  .baan-tegel.afgewezen { background:#f8d7da;color:#721c24; }
+  .csv-upload { text-align:center;margin:20px 0; }
+  .csv-upload input,.csv-upload button { padding:6px 12px;border-radius:6px; }
+  .csv-upload button { background:#4a90e2;color:white;border:none;cursor:pointer; }
+  nav { display:flex;align-items:center;background-color:#4a90e2;padding:10px 20px;border-radius:8px;margin-bottom:20px;flex-wrap:wrap; }
+  nav a { color:white;text-decoration:none;margin-right:20px;font-weight:600; }
+  nav a:hover { color:#cce4f7; }
+  nav a:last-child { margin-left:auto; }
+  #scoreModal { display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center; }
+  #scoreModal .modal-content { background:white;padding:20px;border-radius:10px;max-width:500px;width:90%;box-shadow:0 0 10px rgba(0,0,0,0.3); }
+  #scoreModal h2 { margin-top:0;color:#4a90e2; }
+  #scoreModal table { width:100%;border-collapse:collapse;margin:10px 0; }
+  #scoreModal td { padding:6px 8px;border-bottom:1px solid #ddd; }
+  #scoreModal input { width:80px; }
+  #scoreModal .actions { text-align:right;margin-top:10px; }
+  #scoreModal button { margin-left:5px;padding:6px 12px;border:none;border-radius:6px;cursor:pointer; }
+  #closeModal { background:#ccc; }
+  #saveScores { background:#28a745;color:white; }
+  #saveCategorie { background:#17a2b8;color:white; }
+  #updateStatus { background:#4a90e2;color:white; }
+  

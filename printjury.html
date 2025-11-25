@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Deelnemerslijst – Printversie</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/printen.css') }}">
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+</head>
+<body>
+
+<h1>Deelnemerslijst – Printversie</h1>
+<button id="printBtn" onclick="window.print()">🖨️ Print deze pagina</button>
+<div id="status">⏳ Wachten tot de admin of chefjury een wedstrijd actief zet...</div>
+<div id="overzicht"></div>
+
+<script src="{{ url_for('static', filename='js/jurylijstprinten.js') }}"></script>
+
+</body>
+</html>

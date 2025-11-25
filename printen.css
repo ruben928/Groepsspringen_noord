@@ -1,0 +1,114 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f8f9fa;
+    margin: 20px;
+    color: #000;
+  }
+  h1 {
+    text-align: center;
+    color: #4a90e2;
+  }
+  h2 {
+    text-align: center;
+    color: #4a90e2;
+    margin-top: 40px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: white;
+    page-break-inside: avoid;
+  }
+  th, td {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+  th {
+    background: #4a90e2;
+    color: white;
+  }
+  input {
+    width: 60px;
+    text-align: center;
+    border: none;
+    border-bottom: 1px solid #000;
+    font-size: 14px;
+  }
+  #status {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 1.1em;
+    color: #333;
+  }
+
+  /* 🖨️ Printknop styling */
+  #printBtn {
+    display: block;
+    margin: 10px auto 30px;
+    padding: 10px 20px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  #printBtn:hover {
+    background-color: #357ab7;
+  }
+
+  /* 🧾 PRINT LAYOUT */
+  @page {
+    size: A4 landscape;  /* Altijd liggend printen */
+    margin: 1cm;
+  }
+
+  @media print {
+    body {
+      margin: 0;
+      background: white;
+      color: black;
+    }
+
+    #printBtn, #status {
+      display: none; /* Verberg knoppen en status bij printen */
+    }
+
+    h2 {
+      page-break-before: always; /* Elke baan begint op een nieuw blad */
+      text-align: center;
+      color: #000;
+      margin-top: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      page-break-inside: auto;
+    }
+
+    thead {
+      display: table-header-group; /* ✅ Herhaal kop op elke pagina */
+    }
+
+    tr {
+      page-break-inside: avoid; /* Geen afgebroken rijen */
+    }
+
+    input {
+      border: none;
+      border-bottom: 1px solid #000;
+    }
+
+    tbody tr:nth-child(odd) td {
+      background: #fafafa;
+    }
+
+    table::after {
+      content: "";
+      display: block;
+      page-break-after: always;
+    }
+  }

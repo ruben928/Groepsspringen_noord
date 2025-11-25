@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rollen Beheren</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/adminrollen.css') }}">
+</head>
+<body>
+  <nav>
+  <a href="/dashboard">Admin home</a>
+  <a href="/admin/rollen">Rollenbeheer</a>
+  <a href="/admin/wedstrijden">Wedstrijden</a>
+  <a href="/admin/activeren">Activeren Wedstrijd</a>
+  <a href="/logout" class="logout-link">Uitloggen</a>
+</nav>
+
+  <h1>Rollen Beheren</h1>
+
+  <table id="rollenTable">
+    <thead>
+      <tr>
+        <th>Gebruiker</th>
+        <th>Rol</th>
+        <th>Baan</th>
+        <th>Wachtwoord</th>
+        <th>Acties</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Rijen via JS -->
+    </tbody>
+  </table>
+
+  <div style="width:90%; margin:20px auto; text-align:center;">
+    <h3>Nieuwe rol toewijzen</h3>
+    <input type="text" id="newUser" placeholder="Gebruikersnaam" />
+    <input type="text" id="newRole" placeholder="Rol (bijv. admin, jury)" />
+    <input type="text" id="newBaan" placeholder="Baan (bijv. 1)" />
+    <button onclick="addRole()">Toevoegen</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="{{ url_for('static', filename='js/adminrollen.js') }}"></script>
+</body>
+</html>

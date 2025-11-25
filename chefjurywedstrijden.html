@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<title>Wedstrijden Overzicht</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chefjurywedstrijden.css') }}">
+</head>
+<body>
+
+<nav>
+  <a href="/chefjury">Home</a> |
+  <a href="/uitslagen">Live Uitslagen</a> |
+  <a href="/chefjury/wedstrijden">Wedstrijden</a> |
+  <a href="/logout">Uitloggen</a>
+</nav>
+
+<h1>Wedstrijden overzicht</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>nr</th><th>Naam wedstrijd</th><th>Soort</th><th>Dagdeel</th><th>Datum</th><th>Locatie</th>
+    </tr>
+  </thead>
+  <tbody id="wedstrijdenTableBody"><tr><td colspan="6">Data wordt geladen...</td></tr></tbody>
+</table>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+<script src="{{ url_for('static', filename='js/chefjurywedstrijden.js') }}"></script>
+</body>
+</html>

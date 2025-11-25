@@ -1,0 +1,21 @@
+body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; margin:0; padding:20px; }
+  nav { display:flex; align-items:center; background:#4a90e2; padding:10px 20px; border-radius:8px; margin-bottom:20px; flex-wrap:wrap; }
+  nav a { color:white; text-decoration:none; margin-right:20px; font-weight:600; transition:color 0.2s; }
+  nav a:hover { color:#cce4f7; }
+  nav a.logout-link { margin-left:auto; }
+  @media (max-width:600px){ nav{flex-direction:column; align-items:flex-start;} nav a.logout-link{margin-left:0;margin-top:10px;} }
+  h1 { text-align:center; color:#4a90e2; margin-top:0; }
+  table { margin:20px auto; border-collapse:collapse; width:80%; background:white; border-radius:10px; overflow:hidden; }
+  th, td { padding:12px; border-bottom:1px solid #ddd; text-align:left; }
+  tr:hover { background:#f9f9f9; }
+  button { background:#4a90e2; color:white; border:none; padding:8px 15px; border-radius:6px; cursor:pointer; transition:background 0.2s; }
+  button:hover { background:#357ab8; }
+  .trash-button { background:none; border:none; color:#dc3545; font-size:16px; cursor:pointer; transition:color 0.2s; }
+  .trash-button:hover { color:#a71d2a; }
+  .center { text-align:center; }
+  #modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:1000; }
+  #modalContent { background:white; padding:20px; border-radius:8px; width:360px; max-height:90vh; overflow-y:auto; }
+  #modalContent h2 { margin-top:0; color:#4a90e2; }
+  #banenContainer { display:grid; grid-gap:5px; margin-top:10px; user-select:none; }
+  .baan { padding:12px; text-align:center; border:1px solid #ccc; border-radius:6px; cursor:pointer; background:#f0f0f0; transition:0.2s; }
+  .baan.selected { background:#4a90e2; color:white; border-color:#357ab8; }

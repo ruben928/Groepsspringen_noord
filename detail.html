@@ -1,0 +1,52 @@
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Wedstrijd Detail - Admin</title>
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chefjurycontrole.css') }}">
+</head>
+<body>
+
+<nav>
+  <a href="/dashboard">Admin home</a>
+  <a href="/admin/rollen">Rollenbeheer</a>
+  <a href="/admin/wedstrijden">Wedstrijden</a>
+  <a href="/admin/activeren">Activeren Wedstrijd</a>
+  <a href="/logout" class="logout-link">Uitloggen</a>
+</nav>
+
+<h1>Wedstrijd Detail - Admin</h1>
+
+<!-- ✅ Wedstrijd info -->
+<div id="wedstrijdInfo">
+  <h2 id="wedstrijdNaam">Wedstrijd: …</h2>
+  <p id="wedstrijdSoortTekst">Soort: …</p>
+  <button id="addTeamBtn">Team toevoegen</button>
+
+</div>
+
+<div class="csv-upload">
+  <input type="file" id="csvFile" accept=".csv">
+  <button id="uploadBtn">Uploaden</button>
+</div>
+<input id="zoekInput" type="number" placeholder="Zoek op nummer..." style="margin:10px; padding:5px;">
+<div id="banenContainer"></div>
+
+
+<div id="scoreModal">
+  <div class="modal-content">
+    <h2 id="modalTitle">Scores</h2>
+    <table id="scoreTable"></table>
+    <div class="actions">
+      <button id="closeModal">Sluiten</button>
+      <button id="saveScores">Scores opslaan</button>
+      <button id="saveCategorie">Categorie opslaan</button>
+      <button id="updateStatus">Status bijwerken</button>
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/admindetail.js') }}"></script>
+
+</body>
+</html>

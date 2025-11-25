@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Live Uitslagen</title>
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/uitslagen.css') }}">
+</head>
+<body>
+<h2 id="pageTitle">Live Uitslagen</h2>
+<button id="printBtn" onclick="window.print()">🖨️ Printen</button>
+<button id="exportExcelBtn">Exporteer naar Excel</button>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+<div id="status">⏳ Verbinden met server...</div>
+<div id="tablesContainer"></div>
+<script src="{{ url_for('static', filename='js/uitslagen.js') }}"></script>
+</body>
+</html>

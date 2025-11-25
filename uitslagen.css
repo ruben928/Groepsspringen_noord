@@ -1,0 +1,89 @@
+body {
+    background: #fff;
+    color: #222;
+    font-family: Arial, sans-serif;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: #fff;
+    table-layout: fixed;
+  }
+  th, td {
+    padding: 6px 10px;
+    border: 1px solid #bbb;
+    background: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12.5px;
+  }
+  th { background: #4a90e2; color: #fff; font-weight: 600; }
+  /* Kolommen: Plaats, Naam, Totaal (smal), rest */
+  th:nth-child(1), td:nth-child(1) { width: 42px; min-width: 42px; text-align: center; }
+  th:nth-child(2), td:nth-child(2) { width: 185px; min-width: 125px; text-align: left; }
+  th:nth-child(3), td:nth-child(3) { width: 72px; min-width: 65px; text-align: right; }
+  .cijferkolom   { width: 53px; text-align: right; }
+  /* Responsive scrolbaar */
+  .table-wrap { overflow-x: auto; }
+  #status { margin-top: 10px; text-align: center; }
+  .category-block { padding: 10px; margin-top: 30px; }
+  h2 { text-align: center; color: #4a90e2; margin-bottom: 20px; }
+  h3 { margin-top: 40px; color: #357ab8; }
+  #printBtn { display: block; margin: 10px auto 20px auto; padding: 8px 16px; background: #4a90e2; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+  #printBtn:hover { background: #357ab8; }
+
+  @media print {
+    body { color: #000; background: #fff; font-size: 10pt; }
+    #printBtn, #status { display: none !important; }
+    .category-block { page-break-before: always; }
+    .category-block:first-of-type { page-break-before: auto; }
+    table { font-size: 9pt; }
+    th, td { padding: 3px 6px; font-size: 9pt; }
+    th:nth-child(1), td:nth-child(1) { width: 33px; }
+    th:nth-child(2), td:nth-child(2) { width: 160px; }
+    th:nth-child(3), td:nth-child(3) { width: 60px; }
+    th.cijferkolom, td.cijferkolom { width: 42px; }
+    h2, h3 { color: #357ab8; }
+    @page { size: A4 landscape; margin: 1.2cm; }
+  }
+
+  .team-ranking {
+  width: 80%; /* smaller zodat het in het midden staat */
+  margin: 20px auto; /* gecentreerd */
+  border-collapse: collapse;
+  table-layout: fixed;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.team-ranking table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.team-ranking th, .team-ranking td {
+  padding: 6px 10px;
+  border: 1px solid #bbb;
+  text-align: center;
+  font-size: 12.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.team-ranking th {
+  background: #4a90e2;
+  color: #fff;
+  font-weight: 600;
+}
+
+.team-ranking h4 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  text-align: center;
+  color: #1c4f7b;
+}
+
+  

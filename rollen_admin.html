@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rollen Beheren</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #d0e8f2, #f8f9fa);
+      margin: 0; 
+      padding: 20px;
+    }
+
+    /* NAV BAR */
+    nav {
+      background-color: #4a90e2;
+      padding: 10px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+
+      display: flex;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-right: 20px;
+      font-weight: 600;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #cce4f7;
+    }
+
+    .logout-link {
+      margin-left: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #4a90e2;
+      margin-top: 0;
+    }
+
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 80%;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 6px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background-color: #357ab8;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .actions button {
+      margin-right: 5px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/admin">Admin Home</a>
+    <a href="/admin/wedstrijden">Wedstrijden</a>
+    <a href="/admin/activeren">Activeren Wedstrijd</a>
+    <a href="/logout" class="logout-link">Uitloggen</a>
+  </nav>
+
+  <h1>Rollen Beheren</h1>
+
+  <table id="rollenTable">
+    <thead>
+      <tr>
+        <th>Gebruiker</th>
+        <th>Rol</th>
+        <th>Wachtwoord</th>
+        <th>Acties</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Rijen worden via JS toegevoegd -->
+    </tbody>
+  </table>
+
+  <div style="width: 80%; margin: 20px auto; text-align: center;">
+    <h3>Nieuwe rol toewijzen</h3>
+    <input type="text" id="newUser" placeholder="Gebruikersnaam" />
+    <input type="text" id="newRole" placeholder="Rol (bijv. admin, jury)" />
+    <button onclick="addRole()">Toevoegen</button>
+  </div>
+
+  <script>
+    async function fetchRoles() {
+      const res = await fetch('/api/roles');
+      if (!res.ok) {
+        alert('Fout bij ophalen van rollen');
+        return;
+      }
+      const data = await res.json();
+      const tbody = document.querySelector('#rollenTable tbody');
+      tbody.innerHTML = '';
+      data.roles.forEach(({id, user, role, password}) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><input type="text" value="${user}" data-id="${id}" class="userInput"></td>
+          <td><input type="text" value="${role}" data-id="${id}" class="roleInput"></td>
+          <td><input type="password" value="${password || ''}" data-id="${id}" class="passwordInput"></td>
+          <td class="center actions">
+            <button onclick="updateRole(${id})">Opslaan</button>
+            <button onclick="deleteRole(${id})" style="background-color:#d9534f;">Verwijderen</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    async function updateRole(id) {
+      const row = document.querySelector(`[data-id="${id}"]`).closest('tr');
+      const user = row.querySelector('.userInput').value.trim();
+      const role = row.querySelector('.roleInput').value.trim();
+      const password = row.querySelector('.passwordInput').value.trim();
+
+      if (!user || !role || !password) {
+        alert('Vul gebruikersnaam, rol en wachtwoord in.');
+        return;
+      }
+
+      const res = await fetch('/api/roles/' + id, {
+        method: 'PUT',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({user, role, password})
+      });
+
+      if (res.ok) {
+        alert('Rol bijgewerkt!');
+        fetchRoles();
+      } else {
+        alert('Fout bij bijwerken rol');
+      }
+    }
+
+    async function deleteRole(id) {
+      if (!confirm('Weet je zeker dat je deze rol wilt verwijderen?')) return;
+      const res = await fetch('/api/roles/' + id, { method: 'DELETE' });
+      if (res.ok) {
+        alert('Rol verwijderd!');
+        fetchRoles();
+      } else {
+        alert('Fout bij verwijderen rol');
+      }
+    }
+
+    async function addRole() {
+      const user = document.getElementById('newUser').value.trim();
+      const role = document.getElementById('newRole').value.trim();
+      if (!user || !role) {
+        alert('Vul gebruikersnaam en rol in.');
+        return;
+      }
+      const password = prompt("Geef een wachtwoord op voor deze gebruiker:");
+      if (!password) {
+        alert('Wachtwoord is verplicht.');
+        return;
+      }
+
+      const res = await fetch('/api/roles', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({user, role, password})
+      });
+
+      if (res.ok) {
+        alert('Rol toegevoegd!');
+        document.getElementById('newUser').value = '';
+        document.getElementById('newRole').value = '';
+        fetchRoles();
+      } else {
+        alert('Fout bij toevoegen rol');
+      }
+    }
+
+    // Init
+    fetchRoles();
+  </script>
+</body>
+</html>

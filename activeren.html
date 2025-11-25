@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Activeren Wedstrijd</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/adminactiveren.css') }}">
+</head>
+<body>
+
+<nav>
+  <a href="/dashboard">Admin home</a>
+  <a href="/admin/rollen">Rollenbeheer</a>
+  <a href="/admin/wedstrijden">Wedstrijden</a>
+  <a href="/admin/activeren">Activeren Wedstrijd</a>
+  <a href="/logout" class="logout-link">Uitloggen</a>
+</nav>
+
+</nav>
+
+<h1>Wedstrijden Activeren</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Naam</th>
+      <th>Datum</th>
+      <th>Dagdeel</th>
+      <th>Status</th>
+      <th>Actie</th>
+    </tr>
+  </thead>
+  <tbody id="wedstrijdenBody">
+    <!-- Wedstrijden komen hier via JS -->
+  </tbody>
+</table>
+
+<script src="{{ url_for('static', filename='js/adminactiveren.js') }}"></script>
+
+</body>
+</html>

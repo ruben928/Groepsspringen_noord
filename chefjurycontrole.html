@@ -1,0 +1,50 @@
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Wedstrijd Detail - Chefjury</title>
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chefjurycontrole.css') }}">
+</head>
+<body>
+
+<nav>
+    <a href="/chefjury">Home</a> |
+    <a href="/uitslagen">Live Uitslagen</a> |
+    <a href="/chefjury/wedstrijden"> Wedstrijden</a> |
+    <a href="/logout">Uitloggen</a>
+    </nav
+
+<h1>Wedstrijd Detail - Chefjury</h1>
+
+<!-- ✅ Wedstrijd info -->
+<div id="wedstrijdInfo">
+  <h2 id="wedstrijdNaam">Wedstrijd: …</h2>
+  <p id="wedstrijdSoortTekst">Soort: …</p>
+</div>
+
+<div class="csv-upload">
+  <input type="file" id="csvFile" accept=".csv">
+  <button id="uploadBtn">Uploaden</button>
+</div>
+
+<div id="banenContainer"></div>
+
+<div id="scoreModal">
+  <div class="modal-content">
+    <h2 id="modalTitle">Scores</h2>
+    <table id="scoreTable"></table>
+    <div class="actions">
+      <button id="closeModal">Sluiten</button>
+      <button id="saveScores">Scores opslaan</button>
+      <button id="saveCategorie">Categorie opslaan</button>
+      <button id="updateStatus">Status bijwerken</button>
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/chefjurycontrole.js') }}"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(to right, #d0e8f2, #f8f9fa); margin:0; padding:20px; }
+    nav { background-color: #4a90e2; padding: 10px 20px; border-radius: 8px; margin-bottom: 20px; display:flex; align-items:center; }
+    nav a { color:white; text-decoration:none; margin-right:20px; font-weight:600; font-size:16px; transition:color 0.3s ease; }
+    nav a:hover { color:#cce4f7; }
+    .logout-link { margin-left:auto; }
+    h1 { text-align:center; color:#4a90e2; margin-top:0; }
+    table { margin:20px auto; border-collapse:collapse; width:90%; background:white; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.1);}
+    th, td { padding:12px 15px; border-bottom:1px solid #ddd; text-align:left; }
+    tr:hover { background-color:#f1f1f1; }
+    input[type="text"], input[type="password"] { width:100%; padding:6px; font-size:14px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box; }
+    button { background-color:#4a90e2; color:white; border:none; padding:8px 15px; border-radius:6px; cursor:pointer; font-size:14px; }
+    button:hover { background-color:#357ab8; }
+    .center { text-align:center; }
+    .actions button { margin-right:5px; }
+ 

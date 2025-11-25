@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>GS Fryslân – Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(160deg, #e5f1ff, #ffffff);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 60px;
+        }
+
+        /* Login card met logo achter het hele veld */
+        .container {
+            max-width: 400px;
+            width: 90%;
+            background: white;
+            padding: 35px 45px;
+            border-radius: 18px;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
+            position: relative;
+            overflow: hidden; /* zodat logo netjes in het vlak blijft */
+        }
+
+        /* Watermerk achter complete container */
+        .container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('/static/logo.png') no-repeat center;
+    background-size: 260px;
+    opacity: 0.2;   /* Donkerder logo */
+    z-index: 0;
+}
+
+
+        /* Zorgen dat de inhoud boven het watermerk zit */
+        .container * {
+            position: relative;
+            z-index: 2;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 26px;
+            margin-bottom: 28px;
+            letter-spacing: 1px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #d0d0d0;
+            font-size: 15px;
+            margin-bottom: 18px;
+            transition: 0.2s;
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
+            outline: none;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background: #4a90e2;
+            color: white;
+            border-radius: 10px;
+            font-size: 17px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        input[type="submit"]:hover {
+            background: #357ab8;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>GS FRYSLÂN</h2>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <form method="post" action="/login">
+            <label for="username">Gebruikersnaam</label>
+            <input type="text" id="username" name="username" placeholder="admin" required>
+
+            <label for="password">Wachtwoord</label>
+            <input type="password" id="password" name="password" placeholder="••••••••" required>
+
+            <input type="submit" value="Inloggen">
+        </form>
+    </div>
+
+</body>
+</html>

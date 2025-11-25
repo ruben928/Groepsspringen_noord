@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Chefjury Home</title>
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chefjuryhome.css') }}">
+</head>
+<body>
+
+<h1>Welkom, {{ username }}</h1>
+
+<nav>
+    <a href="/chefjury">Home</a> 
+    <a href="/uitslagen">Live Uitslagen</a> 
+    <a href="/chefjury/wedstrijden">Wedstrijden</a> 
+    <a href="/printen">jurylijst printen</a>
+    <a href="/logout">Uitloggen</a>
+    
+</nav>
+
+<div id="wedstrijden">
+  <h2>Wedstrijden</h2>
+  <div id="wedstrijdLijst"></div>
+</div>
+
+<div id="juryStatus">
+  <h2>Ingelogde Juryleden (Actieve Wedstrijd)</h2>
+  <ul id="juryleden"></ul>
+</div>
+
+<div id="pauzeContainer">
+  <button id="pauzeBtn">Pauzeer Dia</button>
+</div>
+
+<div id="infoDia">
+  <h2>Info Dia</h2>
+  <p id="diaText">Welkom bij de aansturing.</p>
+  <input type="text" id="diaInput" placeholder="Typ hier de boodschap...">
+  <br>
+  <button id="updateDiaBtn">Verstuur naar dia</button>
+</div>
+
+<script src="{{ url_for('static', filename='js/chefjuryhome.js') }}"></script>
+
+
+
+</body>
+</html>

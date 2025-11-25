@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Scores invoeren</title>
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/invoer.css') }}">
+</head>
+<body>
+
+  <h2>Scores invoeren – Baan <span id="baanDisplay"></span></h2>
+  <div id="status">⏳ Wachten tot de admin of chefjury een wedstrijd op actief zet...</div>
+
+  <table id="scoreTable">
+    <thead>
+      <tr>
+        <th>Nr</th>
+        <th>Naam</th>
+        <th id="th_vereniging">Vereniging</th> <!-- 👈 belangrijk: id toegevoegd -->
+        <th>Categorie</th>
+        <th>Totaal</th>
+        <th>Jury 1</th>
+        <th>Jury 2</th>
+        <th>Subjury</th>
+        <th>Moeilijkheid</th>
+        <th>Samenstelling</th>
+        <th>Bonus</th>
+        <th>Aftrek HJ</th>
+        <th>Subscore</th>
+        <th>Actie</th>
+      </tr>
+    </thead>
+    <tbody id="deelnemersBody">
+      <tr><td colspan="14">Nog geen actieve wedstrijd...</td></tr>
+    </tbody>
+  </table>
+
+  <div id="toast">✅ Score opgeslagen!</div>
+
+  <script src="{{ url_for('static', filename='js/invoer.js') }}"></script>
+</body>
+</html>
